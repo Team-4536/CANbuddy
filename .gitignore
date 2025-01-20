@@ -1,0 +1,12 @@
+.DS_Store
+
+# editors
+*.swp
+*~
+\#*
+.\#*
+
+# build
+/build*/
+
+/bb/
