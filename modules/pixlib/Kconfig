@@ -1,0 +1,5 @@
+config PIX_LIB
+        bool "CANled library"
+        # enable NEWLIB_LIBC_FLOAT_PRINTF to ensure that these are handled correctly.
+        # TODO: all of that is probably wrong
+        depends on (NEWLIB_LIBC && NEWLIB_LIBC_FLOAT_PRINTF) || EXTERNAL_LIBC || PICOLIBC

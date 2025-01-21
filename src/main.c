@@ -42,7 +42,6 @@ int main(void)
 	ret = gpio_pin_configure_dt(&led2, GPIO_OUTPUT_ACTIVE);
 	gpio_pin_set_dt(&led2, 0);
 
-
 	while (1) {
 		ret = gpio_pin_toggle_dt(&led);
 		if (ret < 0) {
@@ -50,7 +49,6 @@ int main(void)
 		}
 
 		led_state = !led_state;
-		printf("LED state: %s\n", led_state ? "ON" : "OFF");
 		k_msleep(SLEEP_TIME_MS);
 	}
 	return 0;

@@ -1,17 +1,49 @@
 / {
   chosen {
     zephyr,console = &usb_cdc_acm_uart;
+    zephyr,shell-uart = &usb_cdc_acm_uart;
+  };
+
+  aliases {
+    can = &can;
   };
 };
 
-zephyr_udc0: &usbd {
+&usbd {
   usb_cdc_acm_uart: cdc-acm-uart {
     compatible = "zephyr,cdc-acm-uart";
     status = "okay";
   };
+  // for mcumanager
   usb_cdc_acm_uart2: cdc-acm-uart2 {
     compatible = "zephyr,cdc-acm-uart";
     status = "okay";
   };
 };
 
+&pio0 {
+  pio-ws2812 {
+    strip {
+      status = "okay";
+      gpios = <&gpio0 0 GPIO_ACTIVE_HIGH>;
+      chain-length = <100>;
+      color-mapping = <LED_COLOR_ID_GREEN
+                       LED_COLOR_ID_RED
+                       LED_COLOR_ID_BLUE>;
+      reset-delay = <280>;
+      frequency = <800000>;
+    };
+  };
+};
+
+&spi0 {
+  status = "okay";
+  cs-gpios = <&gpio0 3 GPIO_ACTIVE_LOW>;
+  can: can@0 {
+    compatible = "microchip,mcp2515";
+    reg = <0>;
+    spi-max-frequency = <1000000>;
+    osc-freq = <16000000>;
+    int-gpios = <&gpio0 3 GPIO_ACTIVE_LOW>;
+  };
+};

@@ -1,3 +1,6 @@
 [submodule "hal_rpi_pico"]
 	path = hal_rpi_pico
 	url = git@github.com:Team-4536/hal_rpi_pico.git
+[submodule "pixlib"]
+	path = pixlib
+	url = git@github.com:Team-4536/pixlib
