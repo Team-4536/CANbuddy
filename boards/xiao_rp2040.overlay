@@ -5,7 +5,7 @@
   };
 
   aliases {
-    can = &can;
+    mycan = &can;
   };
 };
 
@@ -38,12 +38,16 @@
 
 &spi0 {
   status = "okay";
-  cs-gpios = <&gpio0 3 GPIO_ACTIVE_LOW>;
+  cs-gpios = <&xiao_d 3 GPIO_ACTIVE_LOW>;
   can: can@0 {
+    status = "okay";
     compatible = "microchip,mcp2515";
     reg = <0>;
     spi-max-frequency = <1000000>;
     osc-freq = <16000000>;
-    int-gpios = <&gpio0 3 GPIO_ACTIVE_LOW>;
+    int-gpios = <&xiao_d 0 GPIO_ACTIVE_LOW>;
+		can-transceiver {
+			max-bitrate = <1000000>;
+		};
   };
 };
