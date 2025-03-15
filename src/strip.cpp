@@ -3,6 +3,7 @@
 #include <zephyr/zbus/zbus.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/drivers/led_strip.h>
+#include <zephyr/irq.h>
 
 #include "zbus_can.h"
 
@@ -36,7 +37,9 @@ static void update(Generator *g) {
     Pixel p = g->get(i);
     backing[i] = {p.rgb.red, p.rgb.green, p.rgb.blue};
   }
+  int irql = irq_lock();
   int ret = led_strip_update_rgb(strip, backing, size);
+  irq_unlock(irql);
 
   if (ret) {
     LOG_ERR("couldn't update strip: %d", ret);
@@ -45,9 +48,9 @@ static void update(Generator *g) {
 
 K_TIMER_DEFINE(strip_timer, NULL, NULL);
 
-#define LEFT_SIZE 7
-#define RIGHT_SIZE 7
-#define TOP_SIZE 2
+#define LEFT_SIZE 15
+#define RIGHT_SIZE 15
+#define TOP_SIZE 28
 
 void strip_loop() {
   if (!device_is_ready(strip)) {
@@ -106,7 +109,7 @@ k_timer_start(&strip_timer, K_NO_WAIT, K_MSEC(UPDATE_PERIOD));
       if (zbus_stat == 0) {
         switch (msg.source) {
         case CAN_SOURCE_RIO:
-          LOG_INF("rio msg, enabled %d, red %d, test %d", msg.rio.enabled, msg.rio.redAlliance, msg.rio.testMode);
+          //LOG_INF("rio msg, enabled %d, red %d, test %d", msg.rio.enabled, msg.rio.redAlliance, msg.rio.testMode);
           if (msg.rio.redAlliance) {
             bgl->setColor(Pixel::Red());
             bgr->setColor(Pixel::Red());

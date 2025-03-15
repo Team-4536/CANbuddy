@@ -47,7 +47,7 @@
     strip: strip {
       status = "okay";
       gpios = <&gpio0 27 GPIO_ACTIVE_HIGH>;
-      chain-length = <20>;
+      chain-length = <58>;
       color-mapping = <LED_COLOR_ID_GREEN
                        LED_COLOR_ID_RED
                        LED_COLOR_ID_BLUE>;
