@@ -20,6 +20,10 @@ struct rio_heartbeat {
 struct manipulator_state {
     uint8_t elevatorPos;
     uint8_t coralState;
+    uint8_t elevatorMode;
+    uint8_t selectedSetPoint;
+    uint8_t atSetPoint;
+    uint8_t chuteState;
 };
 
 #ifdef __cplusplus

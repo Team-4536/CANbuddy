@@ -75,7 +75,7 @@ void strip_loop() {
   left->push(bglm);
   right->push(bgrm);
 
-  auto strobe = new Solid(TOP_SIZE, Pixel::Green());
+  auto strobe = new Solid(TOP_SIZE, Pixel(0xff,0x8c,0));
   top->push(strobe->withStrobe(20));
 
   all->push(left);
@@ -85,7 +85,7 @@ void strip_loop() {
   uint8_t last_coral = 255;
   uint8_t last_elevator = 0;
 
-k_timer_start(&strip_timer, K_NO_WAIT, K_MSEC(UPDATE_PERIOD));
+  k_timer_start(&strip_timer, K_NO_WAIT, K_MSEC(UPDATE_PERIOD));
   while (true) {
     static int updates = 0;
 
@@ -146,8 +146,6 @@ k_timer_start(&strip_timer, K_NO_WAIT, K_MSEC(UPDATE_PERIOD));
 
     update(all);
     all->next();
-
-    //k_msleep(20);
   }
 }
 
